@@ -17,11 +17,11 @@ public class ForkJoinSumCalculator extends RecursiveTask<Long> {
     @Override
     protected Long compute() {
         int length = end - start;
-        if (length < 2) {
+        if (length <= 2) {
             return computeSequentially();
         } else {
             int divisionPoint = start + (length / 2);
-            ForkJoinSumCalculator leftTask = new ForkJoinSumCalculator(numbers, 0, divisionPoint);
+            ForkJoinSumCalculator leftTask = new ForkJoinSumCalculator(numbers, start, divisionPoint);
             leftTask.fork();
             ForkJoinSumCalculator rightTask = new ForkJoinSumCalculator(numbers, divisionPoint, end);
             Long rightResult = rightTask.compute();
