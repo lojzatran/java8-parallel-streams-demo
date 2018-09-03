@@ -12,9 +12,11 @@ public class WordCount {
 
     public WordCount accumulate(Character c) {
         if (Character.isSpaceChar(c)) {
-            return lastSpace ? this : new WordCount(count, true);
+            return lastSpace ? this // we have multiple spaces between words
+                    : new WordCount(count, true);  // we came to the end of a word
         } else {
-            return lastSpace ? new WordCount(count + 1, false) : this;
+            return lastSpace ? new WordCount(count + 1, false) // we came from space to a new word
+                    : this; // we are still in the same word
         }
     }
 
